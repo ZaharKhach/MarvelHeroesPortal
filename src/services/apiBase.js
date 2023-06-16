@@ -1,0 +1,1 @@
+export const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
