@@ -6,7 +6,7 @@ import './styles/styles.scss';
 
 const marvelService = new MarvelService();
 
-marvelService.getOneCharacter(1009227).then(res=> console.log(res))
+// marvelService.getOneCharacter(1009227).then(res=> console.log(res))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
