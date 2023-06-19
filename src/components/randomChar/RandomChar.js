@@ -8,7 +8,6 @@ import thor from '../../resourses/img/thor.jpeg';
 import mjolnir from '../../resourses/img/mjolnir.png'
 
 class RandomChar extends Component {
-
     state = {
         char: {},
         loading: true,
@@ -39,12 +38,14 @@ class RandomChar extends Component {
             .then(this.onCharLoaded)
             .catch(this.onError);
             
-        this.setState(({loading}) => ({
-            loading: !loading
+        this.setState(({loading, error}) => ({
+            loading: !loading,
+            error: error ? !error : error 
         }))
     }
 
     render() {
+
         const { char, loading, error } = this.state;
 
         const errorMassage = error ? <ErrorMassage /> : null;
@@ -79,7 +80,12 @@ const View = ({ char }) => {
     const { name, description, thumbnail, homepage, wiki } = char;
     return (
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" className="randomchar__img" />
+
+            {thumbnail.includes('image_not_available.jpg')
+            ? <img src={thumbnail} style={{objectFit: 'contain'}} alt="Random character" className="randomchar__img" />
+            : <img src={thumbnail} alt="Random character" className="randomchar__img" />}
+
+
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">

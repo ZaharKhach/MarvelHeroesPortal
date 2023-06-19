@@ -3,7 +3,6 @@ import { _apiBase } from "./apiBase";
 
 class MarvelService {
 
-
     getResourse = async (url) => {
         const res = await fetch(url);
 
@@ -25,7 +24,11 @@ class MarvelService {
     }
 
     _transformCharacter = (char) => {
+        console.log(char.id)
+        console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
+
         if(char.description.length === 0) char.description = 'Description not found';
+
 
         return {
             name: char.name,
