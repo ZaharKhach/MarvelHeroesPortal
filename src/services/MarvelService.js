@@ -14,7 +14,7 @@ class MarvelService {
     }
 
     getAllCharacters = async () => {
-        const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=210&${this._apiKey}`);
+        const res = await this.getResourse(`${_apiBase}characters?limit=9&apikey=${_apiKey}`);
         return res.data.results.map(this._transformCharacter);
     }
 
@@ -24,8 +24,8 @@ class MarvelService {
     }
 
     _transformCharacter = (char) => {
-        console.log(char.id)
-        console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
+        // console.log(char.id)
+        // console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
 
         if(char.description.length === 0) char.description = 'Description not found';
 

@@ -6,7 +6,6 @@ import CharInfo from "../charInfo/CharInfo";
 import decoration from '../../resourses/img/vision.png'
 
 function App() {
-
   return (
     <div className="app">
       <AppHeader />

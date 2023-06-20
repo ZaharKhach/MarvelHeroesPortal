@@ -81,7 +81,7 @@ const View = ({ char }) => {
     return (
         <div className="randomchar__block">
 
-            {thumbnail.includes('image_not_available.jpg')
+            {thumbnail.includes('image_not_available')
             ? <img src={thumbnail} style={{objectFit: 'contain'}} alt="Random character" className="randomchar__img" />
             : <img src={thumbnail} alt="Random character" className="randomchar__img" />}
 
