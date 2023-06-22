@@ -42,6 +42,7 @@ class CharList extends Component {
     modifedCharList = (res) => {
         const result = res.map(obj => {
             return {
+                id: obj.id,
                 src: obj.thumbnail,
                 name: obj.name
             };
@@ -53,17 +54,18 @@ class CharList extends Component {
     }
 
     render() {
+        const { onCharSelected } = this.props
         const { charList, loading, error } = this.state;
 
         const spinner = loading ? <Spinner /> : null;
         const errorMassage = error ? <ErrorMassage /> : null;
-        const content = !(loading || error) ? <View char = { charList } /> : null;
+        const content = !(loading || error) ? <View char={charList} onCharSelected = {onCharSelected} /> : null;
 
 
         return (
             <div className="char__list">
+                {spinner}
                 <ul className="char__grid">
-                    {spinner}
                     {errorMassage}
                     {content}
                 </ul>
@@ -75,18 +77,18 @@ class CharList extends Component {
     }
 }
 
-const View = ({ char }) => {
-    return char.map((item, index) => {
-        const { src, name } = item;
+const View = ({ char, onCharSelected }) => {
+    return char.map(item => {
+        const { id, src, name } = item;
 
-        console.dir(src)
 
         return (
             <li className="char__item"
-            key={index}>
+                key={id}
+                onClick={() => onCharSelected(id)}>
                 {src.includes("image_not_available")
                     ? <img src={src} alt="abyss" style={{ objectFit: 'contain' }} />
-                    :<img src={src} alt="abyss" /> }
+                    : <img src={src} alt="abyss" />}
                 <div className="char__name">{name}</div>
             </li>
         )

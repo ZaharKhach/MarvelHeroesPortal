@@ -4,7 +4,6 @@ import Spinner from '../spinner/Spinner';
 import ErrorMassage from '../errorMassage/ErrorMassage';
 
 import './randomChar.scss';
-import thor from '../../resourses/img/thor.jpeg';
 import mjolnir from '../../resourses/img/mjolnir.png'
 
 class RandomChar extends Component {

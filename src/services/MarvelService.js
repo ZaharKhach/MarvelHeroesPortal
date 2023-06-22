@@ -24,18 +24,20 @@ class MarvelService {
     }
 
     _transformCharacter = (char) => {
-        // console.log(char.id)
+        console.log(char)
         // console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
 
         if(char.description.length === 0) char.description = 'Description not found';
 
 
         return {
+            id: char.id,
             name: char.name,
             description: char.description.length > 220 ? char.description.substring(0, 156) + "..." : char.description,
             thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
             homepage: char.urls[0].url,
-            wiki: char.urls[1].url
+            wiki: char.urls[1].url,
+            comics: char.comics.items
         }
     }
 }
