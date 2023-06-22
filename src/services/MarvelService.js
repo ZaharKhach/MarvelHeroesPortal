@@ -24,7 +24,7 @@ class MarvelService {
     }
 
     _transformCharacter = (char) => {
-        console.log(char)
+        // console.log(char)
         // console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
 
         if(char.description.length === 0) char.description = 'Description not found';

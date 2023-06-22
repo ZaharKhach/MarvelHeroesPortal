@@ -81,8 +81,9 @@ const View = ({ char }) => {
 
 
 
-    const comics = char.comics.map(item => {
-       return  <li className="char__comics-item">
+    const comics = char.comics.map((item, index) => {
+       return  <li className="char__comics-item"
+                key={index}>
             {item.name}
         </li>
     }).slice(0,10)
