@@ -32,16 +32,18 @@ class CharInfo extends Component {
         const { charId } = this.props;
         if (!charId) return;
 
+        this.onCharLoading();
 
         this.marvelService
             .getOneCharacter(charId)
             .then(this.onCharLoaded)
             .catch(this.onError)
+    }
 
-        this.setState(({ loading, error }) => ({
-            loading: !loading,
-            error: error ? !error : error
-        }))
+    onCharLoading = () => {
+        this.setState({
+            loading:true
+        })
     }
 
     onCharLoaded = (char) => {
@@ -78,8 +80,6 @@ class CharInfo extends Component {
 }
 
 const View = ({ char }) => {
-
-
 
     const comics = char.comics.map((item, index) => {
        return  <li className="char__comics-item"

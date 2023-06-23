@@ -21,6 +21,7 @@ class RandomChar extends Component {
 
     onCharLoaded = (char) => {
         this.setState({ char, loading: false })
+        console.log(char)
     }
 
     onError = () => {
@@ -32,20 +33,24 @@ class RandomChar extends Component {
 
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+
+        this.setState({
+            loading:true
+        })
+
         this.marvelService
             .getOneCharacter(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
             
-        this.setState(({loading, error}) => ({
-            loading: !loading,
-            error: error ? !error : error 
-        }))
+    
+        console.log(this.state)
     }
 
     render() {
 
         const { char, loading, error } = this.state;
+        
 
         const errorMassage = error ? <ErrorMassage /> : null;
         const spinner = loading ? <Spinner /> : null;
@@ -76,8 +81,11 @@ class RandomChar extends Component {
 }
 
 const View = ({ char }) => {
+    console.log(char)
     const { name, description, thumbnail, homepage, wiki } = char;
+
     return (
+
         <div className="randomchar__block">
 
             {thumbnail.includes('image_not_available')

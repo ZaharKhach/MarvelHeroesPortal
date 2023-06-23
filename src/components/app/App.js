@@ -9,6 +9,12 @@ import ErrorBoundary from "../errorBoundary/ErrorBoundary"
 import decoration from '../../resourses/img/vision.png'
 
 class App extends Component {
+  
+
+
+  componentDidMount() {
+    console.log('update')
+  }
 
   state = {
     selectedCharId: null
@@ -20,8 +26,11 @@ class App extends Component {
     })
   }
 
+
   render() {
+
     return (
+      
       <div className="app">
         <AppHeader />
 

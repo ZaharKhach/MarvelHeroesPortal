@@ -1,5 +1,4 @@
-import { _apiKey } from "./apiKey";
-import { _apiBase } from "./apiBase";
+import { _apiBase, _apiKey, _offset } from "./apiValues";
 
 class MarvelService {
 
@@ -13,8 +12,8 @@ class MarvelService {
         return await res.json();
     }
 
-    getAllCharacters = async () => {
-        const res = await this.getResourse(`${_apiBase}characters?limit=9&apikey=${_apiKey}`);
+    getAllCharacters = async (offset = _offset) => {
+        const res = await this.getResourse(`${_apiBase}characters?limit=9&offset=${offset}&apikey=${_apiKey}`);
         return res.data.results.map(this._transformCharacter);
     }
 
