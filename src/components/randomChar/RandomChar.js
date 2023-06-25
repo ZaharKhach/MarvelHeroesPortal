@@ -21,7 +21,6 @@ class RandomChar extends Component {
 
     onCharLoaded = (char) => {
         this.setState({ char, loading: false })
-        console.log(char)
     }
 
     onError = () => {
@@ -44,7 +43,6 @@ class RandomChar extends Component {
             .catch(this.onError);
             
     
-        console.log(this.state)
     }
 
     render() {
@@ -81,7 +79,6 @@ class RandomChar extends Component {
 }
 
 const View = ({ char }) => {
-    console.log(char)
     const { name, description, thumbnail, homepage, wiki } = char;
 
     return (

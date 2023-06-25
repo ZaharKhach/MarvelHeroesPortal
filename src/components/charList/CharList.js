@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import './charList.scss';
 
@@ -7,6 +8,8 @@ import ErrorMassage from '../errorMassage/ErrorMassage';
 import Spinner from '../spinner/Spinner';
 
 class CharList extends Component {
+
+    myRef = React.createRef()
 
     state = {
         charList: [],
@@ -58,13 +61,34 @@ class CharList extends Component {
         })
     }
 
+    onSetRef = elem => {
+        this.myRef = elem;
+    }
+
+    refFocus = (e) => {
+        console.log(this.myRef.children[0])
+        console.log(e.target.parentElement)
+
+        const { children } = this.myRef;
+        const {parentElement} = e.target;
+
+        for (let i = 0; i < children.length; i++) {
+            children[i].classList.remove('char__item_selected');
+
+            if (parentElement === children[i]) {
+                children[i].classList.add('char__item_selected');
+            }
+        }
+    }
+
     renderItems(arr) {
         const items = arr.map((item) => {
             return (
                 <li
-                    className="char__item"
+                    className="char__item "
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
+                    onClick={() => { this.props.onCharSelected(item.id) }}
+                >
                     {item.thumbnail.includes("image_not_available")
                         ? <img src={item.thumbnail} alt={item.name} style={{ objectFit: 'unset' }} />
                         : <img src={item.thumbnail} alt={item.name} style={{ objectFit: 'cover' }} />}
@@ -74,7 +98,9 @@ class CharList extends Component {
             )
         });
         return (
-            <ul className="char__grid">
+            <ul className="char__grid"
+                ref={this.onSetRef}
+                onClick={this.refFocus}>
                 {items}
             </ul>
         )
@@ -105,6 +131,10 @@ class CharList extends Component {
             </div>
         )
     }
+}
+
+CharList.propType = {
+    onCharSelected: PropTypes.func
 }
 
 export default CharList
