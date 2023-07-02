@@ -54,7 +54,7 @@ const CharList = (props) => {
     }
 
 
-    let myRef = useRef();
+    let myRef = useRef(null);
     const onSetRef = elem => {
         myRef = elem;
     }
@@ -121,7 +121,7 @@ const CharList = (props) => {
     )
 }
 
-CharList.propType = {
+CharList.propTypes = {
     onCharSelected: PropTypes.func
 }
 
