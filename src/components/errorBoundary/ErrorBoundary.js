@@ -1,24 +1,26 @@
 import { Component } from "react";
+import ErrorMassage from '../errorMassage/ErrorMassage';
 
-import ErrorMassage from "../errorMassage/ErrorMassage";
 
 class ErrorBoundary extends Component {
-
     state = {
         error: false
     }
 
     componentDidCatch(error, errorInfo) {
-        console.log(error);
-
+        console.log(error, errorInfo);
         this.setState({
             error: true
         })
     }
 
     render() {
-        const error = this.state;
-        return error === true ? <ErrorMassage/> : this.props.children
+        if (this.state.error) {
+            return <ErrorMassage/>
+        }
+
+        return this.props.children;
     }
 }
-export default ErrorBoundary
+
+export default ErrorBoundary;
