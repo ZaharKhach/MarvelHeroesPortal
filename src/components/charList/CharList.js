@@ -42,8 +42,10 @@ const CharList = (props) => {
         setCharList(charList => [...charList, ...newCharList]);
         setLoading(loading => false);
         setNewItemLoading(newItemLoading => false);
-        setOffset(offset => offset + 1);
-        setCharEnded(charEnded => ended)
+        setOffset(offset => offset + 10);
+        setCharEnded(charEnded => ended);
+
+        
     }
 
     const onError = () => {
@@ -96,7 +98,7 @@ const CharList = (props) => {
         )
     }
 
-    
+
     const items = renderItems(charList);
 
     const errorMessage = error ? <ErrorMassage /> : null;
