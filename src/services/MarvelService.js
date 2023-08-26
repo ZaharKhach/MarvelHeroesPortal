@@ -1,35 +1,40 @@
 import { _apiBase, _apiKey, _offset } from "./apiValues";
 
-class MarvelService {
+import { useHttp } from '../hooks/http.hook'
 
-    getResourse = async (url) => {
-        const res = await fetch(url);
+const useMarvelService = () => {
+    const { loading, request, error, clearError } = useHttp();
 
-        if (!res.ok) {
-            throw new Error(`Could not fetch status: ${res.status}`)
-        }//ессли у нас "не успешно" тогда выбросит ошибку 
-
-        return await res.json();
+    const getAllCharacters = async (offset = _offset) => {
+        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&apikey=${_apiKey}`);
+        return res.data.results.map(_transformCharacter);
     }
 
-    getAllCharacters = async (offset = _offset) => {
-        const res = await this.getResourse(`${_apiBase}characters?limit=9&offset=${offset}&apikey=${_apiKey}`);
-        return res.data.results.map(this._transformCharacter);
+    const getOneCharacter = async (id) => {
+        const res = await request(`${_apiBase}characters/${id}?apikey=${_apiKey}`);
+        return _transformCharacter(res.data.results[0])
     }
 
-    getOneCharacter = async (id) => {
-        console.log(id)
-
-        const res = await this.getResourse(`${_apiBase}characters/${id}?apikey=${_apiKey}`);
-        return this._transformCharacter(res.data.results[0])
+    const getComics = async (issueNumber = 11, offset) => {
+        const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&issueNumber=${issueNumber}&apikey=${_apiKey}`);
+        return res.data.results.map(_transformComic);
     }
 
-    _transformCharacter = (char) => {
-        // console.log(char)
-        // console.log(`${char.thumbnail.path}.${char.thumbnail.extension}`.includes('image_not_available.jpg'))
+    const _transformComic = (char) => {
+        if (char.prices[0].price === 0) char.prices[0].price = 'NOT AVAILABLE';
+        // if (char.description.length === 0) char.description = 'Description not found';
 
-        if(char.description.length === 0) char.description = 'Description not found';
+        return {
+            id: char.id,
+            image: `${char.thumbnail.path}.${char.thumbnail.extension}`,
+            title: char.title,
+            price: char.prices[0].price
+        }
+    }
 
+    const _transformCharacter = (char) => {
+
+        if (char.description.length === 0) char.description = 'Description not found';
 
         return {
             id: char.id,
@@ -41,5 +46,7 @@ class MarvelService {
             comics: char.comics.items
         }
     }
+
+    return { loading, error, getAllCharacters, getOneCharacter, getComics }
 }
-export default MarvelService;
+export default useMarvelService;

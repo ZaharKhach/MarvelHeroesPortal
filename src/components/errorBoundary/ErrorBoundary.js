@@ -1,5 +1,5 @@
 import { Component } from "react";
-import ErrorMassage from '../errorMassage/ErrorMassage';
+import ErrorMassage from '../errorMassage/ErrorMessage';
 
 
 class ErrorBoundary extends Component {
@@ -16,7 +16,7 @@ class ErrorBoundary extends Component {
 
     render() {
         if (this.state.error) {
-            return <ErrorMassage/>
+            return <ErrorMassage />
         }
 
         return this.props.children;

@@ -3,62 +3,50 @@ import PropTypes from 'prop-types';
 
 import './charInfo.scss';
 
-import MarvelService from '../../services/MarvelService';
+import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
-import ErrorMassage from '../errorMassage/ErrorMassage';
-import Sceleton from '../skeleton/Sceleton'
+import ErrorMessage from '../errorMassage/ErrorMessage';
+import Skeleton from '../skeleton/Skeleton'
 
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
-    const marvelService = new MarvelService();
+
+    const { loading, error, getOneCharacter } = useMarvelService();
+
 
     useEffect(() => {
-        updateChar()
+        updateChar();
     }, [])
 
     useEffect(() => {
-        updateChar()
+        updateChar();
     }, [props.charId])
 
     const updateChar = () => {
         const { charId } = props;
         if (!charId) return;
 
-        onCharLoading();
-
-        marvelService
-            .getOneCharacter(charId)
+        getOneCharacter(charId)
             .then(onCharLoaded)
-            .catch(onError)
-    }
-
-    const onCharLoading = () => {
-        setLoading(true)
     }
 
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading(false);
     }
 
-    const onError = () => {
-        setLoading(false);
-        setError(true);
-    }
 
-    const sceleton = !(char || loading || error) ? <Sceleton /> : null;
-    const errorMassage = error ? <ErrorMassage /> : null;
+    // console.log(char, loading, error);
+    const skeleton = char || loading || error ? null : <Skeleton />;
+    const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !char) ? <View char={char} /> : null
+    const content = !(loading || error || !char) ? <View char={char} /> : null;
 
     return (
         <div className="char__info">
-            {sceleton}
-            {errorMassage}
+            {skeleton}
+            {errorMessage}
             {spinner}
             {content}
         </div>
@@ -66,6 +54,7 @@ const CharInfo = (props) => {
 }
 
 const View = ({ char }) => {
+    const {thumbnail} = char;
 
     const comics = char.comics.map((item, index) => {
         return <li className="char__comics-item"
@@ -77,9 +66,9 @@ const View = ({ char }) => {
     return (
         <>
             <div className="char__basics">
-                {char.thumbnail.includes('image_not_available')
-                    ? <img src={char.thumbnail} style={{ objectFit: 'contain' }} alt="Random character" className="randomchar__img" />
-                    : <img src={char.thumbnail} alt="Random character" className="randomchar__img" />}
+            {thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'
+                ? <img src={thumbnail} style={{ objectFit: 'contain' }} alt="Random character" className="randomchar__img" />
+                : <img src={thumbnail} alt="Random character" className="randomchar__img" />}
                 <div>
                     <div className="char__info-name">{char.name}</div>
                     <div className="char__btns">
