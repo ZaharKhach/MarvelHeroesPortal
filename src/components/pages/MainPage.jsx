@@ -14,8 +14,6 @@ const MainPage = (props) => {
       setCharId(id)
     }
 
-
-
   return (
     <>
       <ErrorBoundary>
