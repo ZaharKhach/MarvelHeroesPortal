@@ -6,6 +6,7 @@ import "./Comics.scss";
 import useMarvelService from "../../services/MarvelService";
 import ErrorMassage from "../errorMassage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const Comics = (props) => {
   const [comicsList, setComicsList] = useState([]);
@@ -30,16 +31,28 @@ const Comics = (props) => {
       ended = true;
     }
 
-    setComicsList((charList) => [...charList, ...newComicList]);
+    newComicList.forEach((item, index) => {
+      setTimeout(() => {
+        setComicsList((charList) => [...charList, item]);
+        if (index === newComicList.length - 1) {
+          setNewItemLoading(false);
+        }
+      }, index * 100);
+    });
     setOffset((offset) => offset + 10);
-    setNewItemLoading(false);
     setComicEnded(ended);
   };
 
   const renderComics = (arr) => {
-
-    const items = arr.map((item, i) => {
+    const items = 
+    <TransitionGroup component={null}>
+    {arr.map((item, i) => {
       return (
+        <CSSTransition
+        in={true}
+        timeout={550}
+        key={i}
+        classNames='item'>
         <li className="comic__item " key={i}>
           <Link to={`/comics/${item.id}`}>
             <img src={item.image} alt={item.name} />
@@ -47,9 +60,10 @@ const Comics = (props) => {
             <div className="comic__price">{item.price}</div>
           </Link>
         </li>
+        </CSSTransition>
       );
-    });
-    return <ul className="comic__grid">{items}</ul>;
+    })}</TransitionGroup>;
+    return  <ul className="comic__grid">{items}</ul>;
   };
 
   const comics = renderComics(comicsList);

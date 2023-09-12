@@ -1,5 +1,25 @@
 @import '../../styles/variables.scss';
 
+.item-enter {
+    opacity: 0;
+    transform: translateX(100%) translateY(100%);
+  }
+  .item-enter-active {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    transition: opacity 500ms ease-in, transform 500ms ease-in;
+  }
+  .item-exit {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  .item-exit-active {
+    opacity: 0;
+    transform: translateX(-100%) translateY(-100%);
+    transition: opacity 500ms ease-in, transform 500ms ease-in;
+  }
+
+
 .char {
     &__content {
         margin-top: 50px;
