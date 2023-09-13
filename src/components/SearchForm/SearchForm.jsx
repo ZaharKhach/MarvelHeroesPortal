@@ -1,6 +1,7 @@
 import "./searchForm.scss";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import useMarvelService from "../../services/MarvelService";
@@ -26,9 +27,9 @@ const SearchForm = () => {
         <div className="char__search-success">
           There is! Visit {char.name} page?
         </div>
-        <button className="button button__secondary">
+        <Link to={`/character/${char.id}`} className="button button__secondary">
           <div className="inner">Visit page</div>
-        </button>
+        </Link>
       </div>
     ) : (
       <div className="char__search-wrapper">
@@ -46,10 +47,12 @@ const SearchForm = () => {
         }}
         validationSchema={Yup.object({
           name: Yup.string().required("This field is required"),
+          
         })}
         onSubmit={(values) => {
           updateChar(values.name);
         }}
+        validateOnChange={false}
       >
         <Form>
           <label className="char__search-label" htmlFor="name">

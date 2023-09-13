@@ -8,6 +8,7 @@ const Page404 = lazy(() => import("../pages/Page404"));
 const MainPage = lazy(() => import("../pages/MainPage"));
 const ComicsPage = lazy(() => import("../pages/ComicsPage"));
 const SingleComicPage = lazy(() => import("../pages/singleComic/SingleComicPage"));
+const SingleCharPage = lazy(() => import("../pages/singleChar/SingleCharPage"))
 
 
 
@@ -22,6 +23,7 @@ const App = () => {
           <Suspense fallback={<Spinner />}>
             <Routes>
               <Route path="/" element={<MainPage />} />
+              <Route path="/character/:charId" element={<SingleCharPage/>} />
               <Route path="/comics" element={<ComicsPage />} />
               <Route path="/comics/:comicId" element={<SingleComicPage />} />
               <Route path="*" element={<Page404 />} />
