@@ -71,7 +71,7 @@ const CharList = (props) => {
               in={true}
               key={item.id}
               timeout={100}
-              classNames="item"
+              classNames="card"
             >
               <li
                 className="char__item "

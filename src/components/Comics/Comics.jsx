@@ -52,7 +52,7 @@ const Comics = (props) => {
         in={true}
         timeout={550}
         key={i}
-        classNames='item'>
+        classNames='card'>
         <li className="comic__item " key={i}>
           <Link to={`/comics/${item.id}`}>
             <img src={item.image} alt={item.name} />
