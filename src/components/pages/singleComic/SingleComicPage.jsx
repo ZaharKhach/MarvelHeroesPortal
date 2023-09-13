@@ -4,6 +4,9 @@ import "./singleComicPage.scss";
 
 import { useState, useEffect } from "react";
 
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+
 import useMarvelService from "../../../services/MarvelService";
 import Spinner from "../../spinner/Spinner";
 import ErrorMessage from "../../errorMassage/ErrorMessage";
@@ -11,6 +14,7 @@ import ErrorMessage from "../../errorMassage/ErrorMessage";
 const SingleComicPage = (props) => {
   const { comicId } = useParams();
   const [comic, setComic] = useState(null);
+  const [isContentVisible, setContentVisible] = useState(false);
   const { loading, error, getOneComic } = useMarvelService();
 
   useEffect(() => {
@@ -23,19 +27,27 @@ const SingleComicPage = (props) => {
 
   const onComicLoaded = (char) => {
     setComic(char);
+    setContentVisible(true);
+
     console.log(char);
   };
 
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || error || !comic) ? <View comic={comic} /> : null;
+  const content = !(loading || error || !comic) ? (
+    <CSSTransition in={isContentVisible} timeout={550} classNames="item">
+      <View comic={comic} />
+    </CSSTransition>
+  ) : null;
 
   return (
+    <TransitionGroup>
     <>
       {errorMessage}
       {spinner}
       {content}
     </>
+    </TransitionGroup>
   );
 };
 

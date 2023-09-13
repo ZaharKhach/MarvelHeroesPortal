@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { TransitionGroup } from "react-transition-group";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
@@ -18,7 +19,7 @@ const MainPage = (props) => {
   return (
     <>
       <ErrorBoundary>
-        <RandomChar />
+          <RandomChar />
       </ErrorBoundary>
 
       <div className="char__content">
