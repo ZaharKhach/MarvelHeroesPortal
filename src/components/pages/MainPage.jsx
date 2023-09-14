@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 import { TransitionGroup } from "react-transition-group";
 import RandomChar from "../randomChar/RandomChar";
@@ -18,8 +19,13 @@ const MainPage = (props) => {
 
   return (
     <>
+      <Helmet>
+        <meta name="descriotion" content="Marvel information portal" />
+        <title>Marvel information portal</title>
+      </Helmet>
+
       <ErrorBoundary>
-          <RandomChar />
+        <RandomChar />
       </ErrorBoundary>
 
       <div className="char__content">

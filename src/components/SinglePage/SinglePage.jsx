@@ -38,20 +38,21 @@ const SinglePage = ({ Component, dataType }) => {
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error || !data) ? (
-    <Component data={data} />
+      <CSSTransition in={isContentVisible} timeout={750} classNames="item">
+        <Component data={data} />
+      </CSSTransition>
   ) : null;
 
   return (
-    <CSSTransition>
-      <CSSTransition in={isContentVisible} timeout={550} classNames="item">
-        <>
-          <AppBanner />
-          {errorMessage}
-          {spinner}
-          {content}
-        </>
-      </CSSTransition>
-    </CSSTransition>
+    <TransitionGroup>
+    <>
+      <AppBanner />
+      {errorMessage}
+      {spinner}
+      {content}
+    </>
+    </TransitionGroup>
+
   );
 };
 export default SinglePage;
