@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Comics.scss";
@@ -14,16 +14,18 @@ const Comics = (props) => {
   const [offset, setOffset] = useState(0);
   const [charEnded, setComicEnded] = useState(false);
 
-  const { loading, error, getAllCharacters, getComics } = useMarvelService();
+  const { loading, error, getComics } = useMarvelService();
 
-  useEffect(() => {
-    onRequest(offset, true);
-  }, []);
+
 
   const onRequest = (offset, initial) => {
     initial ? setNewItemLoading(false) : setNewItemLoading(true);
     getComics(offset).then(onComicsLoaded);
   };
+
+  useEffect(() => {
+    onRequest(offset, true);
+  }, []);
 
   const onComicsLoaded = (newComicList) => {
     let ended = false;

@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./singlePageAnimation.scss";
 
-import { useState, useEffect, Component as ReactComponent } from "react";
+import { useState, useEffect} from "react";
 import useMarvelService from "../../services/MarvelService";
 
 import Spinner from "../spinner/Spinner";
@@ -16,10 +16,7 @@ const SinglePage = ({ Component, dataType }) => {
   const [isContentVisible, setContentVisible] = useState(false);
   const { loading, error, getOneComic, getOneCharacter } = useMarvelService();
 
-  useEffect(() => {
-    updateData();
-    setContentVisible(true);
-  }, [id]);
+
 
   const updateData = () => {
     switch (dataType) {
@@ -30,6 +27,11 @@ const SinglePage = ({ Component, dataType }) => {
         getOneCharacter(id).then(onDataLoaded);
     }
   };
+
+  useEffect(() => {
+    updateData();
+    setContentVisible(true);
+  }, [id]);
 
   const onDataLoaded = (data) => {
     setData(data);

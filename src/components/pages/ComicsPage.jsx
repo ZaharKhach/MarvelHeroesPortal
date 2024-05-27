@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import AppBanner from "../appBanner/AppBanner";
-import Comics from "../Comics/Comics";
+import Comics from "../comics/Comics";
 
 const ComicsPage = (props) => {
   return (

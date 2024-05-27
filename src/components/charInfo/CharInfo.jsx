@@ -9,10 +9,7 @@ import ErrorMessage from '../errorMassage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton'
 
 const CharInfo = (props) => {
-
     const [char, setChar] = useState(null);
-
-
     const { loading, error, getOneCharacter } = useMarvelService();
 
 
@@ -35,7 +32,6 @@ const CharInfo = (props) => {
     const onCharLoaded = (char) => {
         setChar(char);
     }
-
 
     // console.log(char, loading, error);
     const skeleton = char || loading || error ? null : <Skeleton />;

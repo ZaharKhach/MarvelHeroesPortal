@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 
-import { TransitionGroup } from "react-transition-group";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
-import SearchForm from "../SearchForm/SearchForm";
+import SearchForm from "../searchForm/SearchForm";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 import decoration from "../../resourses/img/vision.png";

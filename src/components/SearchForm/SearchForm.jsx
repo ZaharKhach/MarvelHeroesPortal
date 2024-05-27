@@ -3,13 +3,13 @@ import "./searchForm.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useMarvelService from "../../services/MarvelService";
 import * as Yup from "yup";
 
 const SearchForm = () => {
   const [char, setChar] = useState(null);
-  const { loading, error, getOneCharByName } = useMarvelService();
+  const { getOneCharByName } = useMarvelService();
 
   const updateChar = (name) => {
     getOneCharByName(name).then(onCharLoaded);

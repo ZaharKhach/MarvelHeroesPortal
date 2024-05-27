@@ -1,32 +1,31 @@
-import { _apiBase, _apiKey, _offset } from "./apiValues";
-
 import { useHttp } from '../hooks/http.hook'
 
 const useMarvelService = () => {
-    const { loading, request, error, clearError } = useHttp();
+    const { loading, request, error} = useHttp();
 
-    const getAllCharacters = async (offset = _offset) => {
-        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&apikey=${_apiKey}`);
+    const getAllCharacters = async (offset = process.env.REACT_APP_OFFSET) => {
+        console.log(offset)
+        const res = await request(`${process.env.API_BASE}characters?limit=9&offset=${offset}&apikey=${process.env.REACT_APP_API_KEY}`);
         return res.data.results.map(_transformCharacter);
     }
 
     const getOneCharacter = async (id) => {
-        const res = await request(`${_apiBase}characters/${id}?apikey=${_apiKey}`);
+        const res = await request(`${process.env.REACT_APP_API_BASE}characters/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
         return _transformCharacter(res.data.results[0])
     }
 
     const getOneCharByName = async (name) => {
-        const res = await request(`${_apiBase}characters?name=${name}&apikey=${_apiKey}`);
+        const res = await request(`${process.env.REACT_APP_API_BASE}characters?name=${name}&apikey=${process.env.REACT_APP_API_KEY}`);
         return _transformCharacter(res.data.results[0]);
     }
 
     const getComics = async (issueNumber = 55, offset) => {
-        const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&issueNumber=${issueNumber}&apikey=${_apiKey}`);
+        const res = await request(`${process.env.REACT_APP_API_BASE}comics?limit=8&offset=${offset}&issueNumber=${issueNumber}&apikey=${process.env.REACT_APP_API_KEY}`);
         return res.data.results.map(_transformComic);
     }
 
     const getOneComic = async (id) => {
-        const res = await request(`${_apiBase}comics/${id}?apikey=${_apiKey}`);
+        const res = await request(`${process.env.REACT_APP_API_BASE}comics/${id}?apikey=${process.env.REACT_APP_API_KEY}`);
         // console.log( _transformComic(res.data.results[0]));
         return _transformComic(res.data.results[0]);
     }
